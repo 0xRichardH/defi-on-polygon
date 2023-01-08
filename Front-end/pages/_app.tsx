@@ -10,7 +10,7 @@ import { providers } from "ethers";
 import { createClient, WagmiConfig } from "wagmi";
 
 const localhostProvider = new providers.JsonRpcProvider(
-  "http://localhost:8545",
+  "http://127.0.0.1:8545",
   { name: "dev", chainId: 1337, ensAddress: undefined }
 );
 

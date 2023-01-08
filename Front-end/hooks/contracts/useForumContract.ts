@@ -1,5 +1,6 @@
 import type { BigNumber } from "ethers";
-import { useContract, useProvider } from "wagmi";
+import * as wagmi from "wagmi";
+import { useProvider } from "wagmi";
 import ForumContract from "../../../Hardhat/artifacts/contracts/Forum.sol/Forum.json";
 
 export interface Question {
@@ -11,14 +12,14 @@ export interface Question {
 
 const useForumContract = () => {
   const provider = useProvider();
-  const contract = useContract({
-    addressOrName: "0x873490634066cd71d0805C8aD45563D025037d1f",
+  const contract = wagmi.useContract({
+    addressOrName: "0xe7f1725E7734CE288F8367e1Bb143E90bb3F0512",
     contractInterface: ForumContract.abi,
     signerOrProvider: provider,
   });
 
   const getQuestion = async (questionId: BigNumber): Promise<Question> => {
-    return { ...(await contract.getQuestion(questionId)) };
+    return { ...(await contract.questions(questionId)) };
   };
 
   return {
