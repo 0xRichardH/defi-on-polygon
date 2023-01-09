@@ -10,6 +10,15 @@ export interface Question {
   timestamp: BigNumber;
 }
 
+export interface Answer {
+  answerId: BigNumber;
+  questionId: BigNumber;
+  creatorAddress: string;
+  message: string;
+  timestamp: BigNumber;
+  upvotes: BigNumber;
+}
+
 const useForumContract = () => {
   const provider = useProvider();
   const contract = wagmi.useContract({
@@ -18,14 +27,58 @@ const useForumContract = () => {
     signerOrProvider: provider,
   });
 
+  const getAllQuestions = async (): Promise<Question[]> => {
+    const qArray = contract.getQuestions();
+    return qArray.map((q: Question) => ({ ...q }));
+  };
+
   const getQuestion = async (questionId: BigNumber): Promise<Question> => {
     return { ...(await contract.questions(questionId)) };
+  };
+
+  const getAnswers = async (questionId: BigNumber): Promise<Answer[]> => {
+    const answerIds: BigNumber[] = await contract.getAnswersPerQuestion(
+      questionId
+    );
+    const mappedAnswers = answerIds.map((answerId: BigNumber) =>
+      contract.answers(answerId)
+    );
+    const allAnswers = await Promise.all(mappedAnswers);
+    return allAnswers.map((a: Answer) => ({ ...a }));
+  };
+
+  const getUpvotes = async (answerId: BigNumber): Promise<BigNumber> => {
+    return await contract.getUpvotes(answerId);
+  };
+
+  const postQuestion = async (message: string): Promise<void> => {
+    const tx = await contract.postQuestion(message);
+    await tx.wait();
+  };
+
+  const postAnswer = async (
+    questionId: string,
+    message: string
+  ): Promise<void> => {
+    const tx = await contract.postAnswer(questionId, message);
+    await tx.wait();
+  };
+
+  const upvoteAnswer = async (answerId: string): Promise<void> => {
+    const tx = await contract.postAnswer(answerId);
+    await tx.wait();
   };
 
   return {
     contract,
     chainId: contract.provider.network?.chainId,
+    getAllQuestions,
     getQuestion,
+    getAnswers,
+    getUpvotes,
+    postQuestion,
+    postAnswer,
+    upvoteAnswer,
   };
 };
 
