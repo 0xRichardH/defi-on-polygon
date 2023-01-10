@@ -28,7 +28,7 @@ const useForumContract = () => {
   });
 
   const getAllQuestions = async (): Promise<Question[]> => {
-    const qArray = contract.getQuestions();
+    const qArray = await contract.getQuestions();
     return qArray.map((q: Question) => ({ ...q }));
   };
 
