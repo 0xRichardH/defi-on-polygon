@@ -57,14 +57,14 @@ const useForumContract = () => {
   };
 
   const postAnswer = async (
-    questionId: string,
+    questionId: BigNumber,
     message: string
   ): Promise<void> => {
     const tx = await contract.postAnswer(questionId, message);
     await tx.wait();
   };
 
-  const upvoteAnswer = async (answerId: string): Promise<void> => {
+  const upvoteAnswer = async (answerId: BigNumber): Promise<void> => {
     const tx = await contract.postAnswer(answerId);
     await tx.wait();
   };
