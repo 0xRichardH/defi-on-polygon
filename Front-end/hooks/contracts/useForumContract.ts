@@ -1,6 +1,6 @@
 import type { BigNumber } from "ethers";
 import * as wagmi from "wagmi";
-import { useProvider } from "wagmi";
+import { useProvider, useSigner } from "wagmi";
 import ForumContract from "../../../Hardhat/artifacts/contracts/Forum.sol/Forum.json";
 
 export interface Question {
@@ -21,10 +21,11 @@ export interface Answer {
 
 const useForumContract = () => {
   const provider = useProvider();
+  const { data: singer } = useSigner();
   const contract = wagmi.useContract({
     addressOrName: "0xe7f1725E7734CE288F8367e1Bb143E90bb3F0512",
     contractInterface: ForumContract.abi,
-    signerOrProvider: provider,
+    signerOrProvider: singer || provider,
   });
 
   const getAllQuestions = async (): Promise<Question[]> => {
