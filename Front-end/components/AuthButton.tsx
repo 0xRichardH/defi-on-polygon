@@ -25,7 +25,7 @@ const AuthButton: React.FunctionComponent<AuthButtonProps> = ({
     if (isConnected && chain?.id !== 1337) {
       toast.error("Please connect to the local network");
     }
-  }, [error, isConnected, chain]);
+  }, [error, chain, isConnected]);
 
   React.useEffect(() => {
     if (isConnected) {
@@ -33,7 +33,7 @@ const AuthButton: React.FunctionComponent<AuthButtonProps> = ({
     } else {
       setBtnText("Sign In");
     }
-  }, [isConnected, text]);
+  }, [isConnected]);
 
   if (isConnected) {
     return <Button {...props}>{btnText}</Button>;
