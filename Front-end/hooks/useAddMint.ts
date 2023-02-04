@@ -8,7 +8,7 @@ interface UseAddMintPayload {
 
 const useAddMint = () => {
   const contract = useGoflowContract();
-  useMutation(async ({ amount }: UseAddMintPayload) => {
+  return useMutation(async ({ amount }: UseAddMintPayload) => {
     await contract.mint(makeBig(amount));
   });
 };

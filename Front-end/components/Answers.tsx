@@ -4,6 +4,7 @@ import { Answer as AnswerStruct } from "../hooks/contracts/useForumContract";
 import useAnswers from "../hooks/useAnswers";
 import { Box, Center, Spinner, Stack } from "@chakra-ui/react";
 import Answer from "./Answer";
+import AnswerEditor from "./AnswerEditor";
 
 interface AnswersProps {
   questionId: BigNumber;
@@ -39,6 +40,7 @@ const Answers: React.FunctionComponent<AnswersProps> = ({
             first={i === 0 && answer.upvotes.toNumber() !== 0}
           />
         ))}
+        {answersQuery.isFetched && <AnswerEditor questionId={questionId} />}
       </Stack>
     </Box>
   );
