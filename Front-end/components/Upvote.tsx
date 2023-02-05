@@ -5,6 +5,10 @@ import { FaArrowUp } from "react-icons/fa";
 import { BigNumber } from "ethers";
 import { useAccount } from "wagmi";
 import useUpvotes from "../hooks/useUpvotes";
+import useForumContract from "../hooks/contracts/useForumContract";
+import useAddApprove from "../hooks/useAddApprove";
+import useAddUpvote from "../hooks/useAddUpvote";
+import toast from "react-hot-toast";
 
 interface UpvoteButtonProps extends ButtonProps {
   answerId: BigNumber;
@@ -16,8 +20,13 @@ const Upvote: React.FunctionComponent<UpvoteButtonProps> = ({
 }) => {
   const [upvoteCount, setUpvoteCount] = React.useState(0);
   const { address: account } = useAccount();
+  const forumContract = useForumContract();
   const upvotesQuery = useUpvotes({ answerId });
 
+  const addApprove = useAddApprove();
+  const addUpvote = useAddUpvote();
+
+  const isLoading = addApprove.isLoading || addUpvote.isLoading;
   const upvoteCountText =
     upvoteCount === 1 ? "1 Upvote" : `${upvoteCount} Upvotes`;
 
@@ -30,7 +39,18 @@ const Upvote: React.FunctionComponent<UpvoteButtonProps> = ({
     fetchUpvoteCount();
   }, [answerId, upvotesQuery.data, upvotesQuery.isFetched]);
 
-  const handleClick = async () => {};
+  const handleClick = async () => {
+    try {
+      await addApprove.mutateAsync({
+        address: forumContract.contract.address,
+        amount: "1",
+      });
+      await addUpvote.mutateAsync({ answerId });
+      toast.success("Upvote successful!");
+    } catch (error: any) {
+      toast.error(error.data?.message || error.message);
+    }
+  };
 
   return (
     <>
@@ -39,7 +59,7 @@ const Upvote: React.FunctionComponent<UpvoteButtonProps> = ({
       </Text>
       <Button
         {...props}
-        isLoading={false}
+        isLoading={isLoading}
         disabled={!account}
         onClick={handleClick}
       >

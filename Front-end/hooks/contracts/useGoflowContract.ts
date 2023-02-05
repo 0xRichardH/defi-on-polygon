@@ -14,7 +14,7 @@ const useGoflowContract = () => {
   const { data: signer } = useSigner();
   const provider = useProvider();
   const contract = useContract({
-    addressOrName: "",
+    addressOrName: "0x5FbDB2315678afecb367f032d93F642f64180aa3",
     contractInterface: GoflowContract.abi,
     signerOrProvider: signer || provider,
   });

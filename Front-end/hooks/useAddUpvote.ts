@@ -6,9 +6,11 @@ interface UseAddUpvotePayload {
   answerId: BigNumber;
 }
 
-const useAddUpvote = ({ answerId }: UseAddUpvotePayload) => {
+const useAddUpvote = () => {
   const contract = useForumContract();
-  return useMutation(async () => {
+  return useMutation(async ({ answerId }: UseAddUpvotePayload) => {
     return await contract.upvoteAnswer(answerId);
   });
 };
+
+export default useAddUpvote;
