@@ -45,6 +45,7 @@ const Answer: React.FunctionComponent<AnswerProps> = ({
           </Text>
           <Spacer />
           <Upvote
+            creatorAddress={answer.creatorAddress}
             answerId={answer.answerId}
             alignSelf="flex-end"
             size="sm"
