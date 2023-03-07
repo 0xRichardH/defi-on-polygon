@@ -3,6 +3,12 @@ import * as wagmi from "wagmi";
 import { useProvider, useSigner } from "wagmi";
 import ForumContract from "../../../Hardhat/artifacts/contracts/Forum.sol/Forum.json";
 
+export enum ForumEvent {
+  QuestionAdded = "QuestionAdded",
+  AnswerAdded = "AnswerAdded",
+  AnswerUpvoted = "AnswerUpvoted",
+}
+
 export interface Question {
   questionId: BigNumber;
   message: string;

@@ -3,9 +3,12 @@ import { Box, Center, Spinner, Stack } from "@chakra-ui/react";
 import useQuestions from "../hooks/useQuestions";
 import Question from "./Question";
 import QuestionEditor from "./QuestionEditor";
+import useEvents from "../hooks/useEvents";
 
 const Questions: React.FunctionComponent = () => {
   const { allQuestionsQuery } = useQuestions({});
+
+  useEvents({});
 
   return (
     <Box>
