@@ -1,18 +1,18 @@
-import { Button, ButtonProps, Icon, Text } from "@chakra-ui/react";
-import * as React from "react";
-import { useEffect } from "react";
-import { FaArrowUp } from "react-icons/fa";
-import { BigNumber } from "ethers";
-import { useAccount } from "wagmi";
-import useUpvotes from "../hooks/useUpvotes";
-import useForumContract from "../hooks/contracts/useForumContract";
-import useAddApprove from "../hooks/useAddApprove";
-import useAddUpvote from "../hooks/useAddUpvote";
-import toast from "react-hot-toast";
+import { Button, ButtonProps, Icon, Text } from "@chakra-ui/react"
+import * as React from "react"
+import { useEffect } from "react"
+import { FaArrowUp } from "react-icons/fa"
+import { BigNumber } from "ethers"
+import { useAccount } from "wagmi"
+import useUpvotes from "../hooks/useUpvotes"
+import useForumContract from "../hooks/contracts/useForumContract"
+import useAddApprove from "../hooks/useAddApprove"
+import useAddUpvote from "../hooks/useAddUpvote"
+import toast from "react-hot-toast"
 
 interface UpvoteButtonProps extends ButtonProps {
-  creatorAddress: string;
-  answerId: BigNumber;
+  creatorAddress: string
+  answerId: BigNumber
 }
 
 const Upvote: React.FunctionComponent<UpvoteButtonProps> = ({
@@ -20,46 +20,46 @@ const Upvote: React.FunctionComponent<UpvoteButtonProps> = ({
   creatorAddress,
   ...props
 }) => {
-  const [upvoteCount, setUpvoteCount] = React.useState(0);
-  const { address: account } = useAccount();
+  const [upvoteCount, setUpvoteCount] = React.useState(0)
+  const { address: account } = useAccount()
 
-  const forumContract = useForumContract();
-  const upvotesQuery = useUpvotes({ answerId });
+  const forumContract = useForumContract()
+  const upvotesQuery = useUpvotes({ answerId })
 
-  const addApprove = useAddApprove();
-  const addUpvote = useAddUpvote();
+  const addApprove = useAddApprove()
+  const addUpvote = useAddUpvote()
 
-  const isLoading = addApprove.isLoading || addUpvote.isLoading;
+  const isLoading = addApprove.isLoading || addUpvote.isLoading
   const upvoteCountText =
-    upvoteCount === 1 ? "1 Upvote" : `${upvoteCount} Upvotes`;
+    upvoteCount === 1 ? "1 Upvote" : `${upvoteCount} Upvotes`
 
   useEffect(() => {
     const fetchUpvoteCount = async () => {
       if (upvotesQuery.isFetched && !!upvotesQuery.data) {
-        setUpvoteCount(upvotesQuery.data.toNumber());
+        setUpvoteCount(upvotesQuery.data.toNumber())
       }
-    };
-    fetchUpvoteCount();
-  }, [answerId, upvotesQuery.data, upvotesQuery.isFetched]);
+    }
+    fetchUpvoteCount()
+  }, [answerId, upvotesQuery.data, upvotesQuery.isFetched])
 
   const handleClick = async () => {
-    console.log(account, creatorAddress);
+    console.log(account, creatorAddress)
     if (account === creatorAddress) {
-      toast.error("You cannot upvote your own answer!");
-      return;
+      toast.error("You cannot upvote your own answer!")
+      return
     }
 
     try {
       await addApprove.mutateAsync({
         address: forumContract.contract.address,
         amount: "1",
-      });
-      await addUpvote.mutateAsync({ answerId });
-      toast.success("Upvote successful!");
+      })
+      await addUpvote.mutateAsync({ answerId })
+      toast.success("Upvote successful!")
     } catch (error: any) {
-      toast.error(error.data?.message || error.message);
+      toast.error(error.data?.message || error.message)
     }
-  };
+  }
 
   return (
     <>
@@ -75,7 +75,7 @@ const Upvote: React.FunctionComponent<UpvoteButtonProps> = ({
         <Icon as={FaArrowUp} />
       </Button>
     </>
-  );
-};
+  )
+}
 
-export default Upvote;
+export default Upvote

@@ -1,15 +1,15 @@
-import { Text, TextProps } from "@chakra-ui/react";
-import truncateMiddle from "truncate-middle";
+import { Text, TextProps } from "@chakra-ui/react"
+import truncateMiddle from "truncate-middle"
 
 interface UsernameProps extends TextProps {
-  address: string;
+  address: string
 }
 
 const Username: React.FunctionComponent<UsernameProps> = ({
   address,
   ...otherProps
 }: UsernameProps) => {
-  const data = address;
+  const data = address
 
   return (
     <Text
@@ -19,7 +19,7 @@ const Username: React.FunctionComponent<UsernameProps> = ({
     >
       {truncateMiddle(address || "", 6, 5, "...")}
     </Text>
-  );
-};
+  )
+}
 
-export default Username;
+export default Username

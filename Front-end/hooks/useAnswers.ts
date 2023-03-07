@@ -1,20 +1,20 @@
-import { BigNumber } from "ethers";
-import { useQuery } from "react-query";
-import useForumContract from "./contracts/useForumContract";
+import { BigNumber } from "ethers"
+import { useQuery } from "react-query"
+import useForumContract from "./contracts/useForumContract"
 
 interface UseAnswersQuery {
-  questionId: BigNumber;
+  questionId: BigNumber
 }
 
 const useAnswers = ({ questionId }: UseAnswersQuery) => {
-  const contract = useForumContract();
+  const contract = useForumContract()
   return useQuery(
     ["answers", questionId.toNumber()],
     async () => {
-      return await contract.getAnswers(questionId);
+      return await contract.getAnswers(questionId)
     },
     { enabled: !!questionId }
-  );
-};
+  )
+}
 
-export default useAnswers;
+export default useAnswers

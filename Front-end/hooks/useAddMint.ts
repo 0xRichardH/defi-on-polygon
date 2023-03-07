@@ -1,16 +1,16 @@
-import { useMutation } from "react-query";
-import { makeBig } from "../lib/number-utils";
-import useGoflowContract from "./contracts/useGoflowContract";
+import { useMutation } from "react-query"
+import { makeBig } from "../lib/number-utils"
+import useGoflowContract from "./contracts/useGoflowContract"
 
 interface UseAddMintPayload {
-  amount: string;
+  amount: string
 }
 
 const useAddMint = () => {
-  const contract = useGoflowContract();
+  const contract = useGoflowContract()
   return useMutation(async ({ amount }: UseAddMintPayload) => {
-    await contract.mint(makeBig(amount));
-  });
-};
+    await contract.mint(makeBig(amount))
+  })
+}
 
-export default useAddMint;
+export default useAddMint

@@ -1,16 +1,16 @@
-import { HStack, Stack, Image, Textarea, Flex, Spacer } from "@chakra-ui/react";
-import * as React from "react";
-import useAddQuestion from "../hooks/useAddQuestion";
-import AuthButton from "./AuthButton";
+import { HStack, Stack, Image, Textarea, Flex, Spacer } from "@chakra-ui/react"
+import * as React from "react"
+import useAddQuestion from "../hooks/useAddQuestion"
+import AuthButton from "./AuthButton"
 
 const QuestionEditor: React.FunctionComponent = () => {
-  const [message, setMessage] = React.useState("");
-  const addQuestion = useAddQuestion();
+  const [message, setMessage] = React.useState("")
+  const addQuestion = useAddQuestion()
 
   const handleSubmit = async () => {
-    await addQuestion.mutateAsync({ message });
-    setMessage("");
-  };
+    await addQuestion.mutateAsync({ message })
+    setMessage("")
+  }
 
   return (
     <Stack spacing={3}>
@@ -45,7 +45,7 @@ const QuestionEditor: React.FunctionComponent = () => {
         />
       </Flex>
     </Stack>
-  );
-};
+  )
+}
 
-export default QuestionEditor;
+export default QuestionEditor

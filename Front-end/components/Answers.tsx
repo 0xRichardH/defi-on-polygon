@@ -1,29 +1,29 @@
-import * as React from "react";
-import { BigNumber } from "ethers";
-import { Answer as AnswerStruct } from "../hooks/contracts/useForumContract";
-import useAnswers from "../hooks/useAnswers";
-import { Box, Center, Spinner, Stack } from "@chakra-ui/react";
-import Answer from "./Answer";
-import AnswerEditor from "./AnswerEditor";
+import * as React from "react"
+import { BigNumber } from "ethers"
+import { Answer as AnswerStruct } from "../hooks/contracts/useForumContract"
+import useAnswers from "../hooks/useAnswers"
+import { Box, Center, Spinner, Stack } from "@chakra-ui/react"
+import Answer from "./Answer"
+import AnswerEditor from "./AnswerEditor"
 
 interface AnswersProps {
-  questionId: BigNumber;
+  questionId: BigNumber
 }
 
 const Answers: React.FunctionComponent<AnswersProps> = ({
   questionId,
 }: AnswersProps) => {
-  const [sortedAnswers, setSortedAnswers] = React.useState<AnswerStruct[]>([]);
-  const answersQuery = useAnswers({ questionId });
+  const [sortedAnswers, setSortedAnswers] = React.useState<AnswerStruct[]>([])
+  const answersQuery = useAnswers({ questionId })
 
   React.useEffect(() => {
     if (answersQuery.data) {
       const sortAnswers = answersQuery.data.sort((a, b) =>
         a.upvotes > b.upvotes ? -1 : 1
-      );
-      setSortedAnswers(sortAnswers);
+      )
+      setSortedAnswers(sortAnswers)
     }
-  }, [answersQuery.data, answersQuery.isFetched]);
+  }, [answersQuery.data, answersQuery.isFetched])
 
   return (
     <Box>
@@ -43,7 +43,7 @@ const Answers: React.FunctionComponent<AnswersProps> = ({
         {answersQuery.isFetched && <AnswerEditor questionId={questionId} />}
       </Stack>
     </Box>
-  );
-};
+  )
+}
 
-export default Answers;
+export default Answers

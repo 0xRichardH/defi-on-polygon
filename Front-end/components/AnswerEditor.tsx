@@ -1,10 +1,10 @@
-import * as React from "react";
-import { BigNumber } from "ethers";
-import { useAccount } from "wagmi";
-import useBalance from "../hooks/useBalance";
-import useAddAnswer from "../hooks/useAddAnswer";
-import useAddMint from "../hooks/useAddMint";
-import { toast } from "react-hot-toast";
+import * as React from "react"
+import { BigNumber } from "ethers"
+import { useAccount } from "wagmi"
+import useBalance from "../hooks/useBalance"
+import useAddAnswer from "../hooks/useAddAnswer"
+import useAddMint from "../hooks/useAddMint"
+import { toast } from "react-hot-toast"
 import {
   Button,
   Flex,
@@ -14,66 +14,64 @@ import {
   Text,
   Image,
   Textarea,
-} from "@chakra-ui/react";
-import AuthButton from "./AuthButton";
+} from "@chakra-ui/react"
+import AuthButton from "./AuthButton"
 
 interface AnswerEditorProps {
-  questionId: BigNumber;
+  questionId: BigNumber
 }
 
 const AnswerEditor: React.FunctionComponent<AnswerEditorProps> = ({
   questionId,
 }: AnswerEditorProps) => {
-  const [message, setMessage] = React.useState("");
-  const { address: account } = useAccount();
-  const { contractBalanceQuery, userBalanceQuery } = useBalance();
-  const addAnswer = useAddAnswer();
-  const addMint = useAddMint();
+  const [message, setMessage] = React.useState("")
+  const { address: account } = useAccount()
+  const { contractBalanceQuery, userBalanceQuery } = useBalance()
+  const addAnswer = useAddAnswer()
+  const addMint = useAddMint()
 
   const isDataFetched =
-    account && contractBalanceQuery.isFetched && userBalanceQuery.isFetched;
+    account && contractBalanceQuery.isFetched && userBalanceQuery.isFetched
 
   const isUserTippable = async (): Promise<boolean> => {
-    const balance = Number(userBalanceQuery.data);
-    return balance >= 10;
-  };
+    const balance = Number(userBalanceQuery.data)
+    return balance >= 10
+  }
 
   const handleFocus = async () => {
     if (!account) {
-      toast.error("Please sign in to submit an answer");
-      return;
+      toast.error("Please sign in to submit an answer")
+      return
     }
-    const tippable = await isUserTippable();
+    const tippable = await isUserTippable()
     if (!tippable) {
-      toast.error(
-        `Keep your Goflow balance above 10 tokens to receive tips 🧧`
-      );
+      toast.error(`Keep your Goflow balance above 10 tokens to receive tips 🧧`)
     } else {
-      toast.success("Your balance is sufficient to receive tips 💸");
+      toast.success("Your balance is sufficient to receive tips 💸")
     }
-  };
+  }
 
   const handleMint = async () => {
     try {
-      await addMint.mutateAsync({ amount: "10" });
+      await addMint.mutateAsync({ amount: "10" })
       toast.success(
         `Minted 10 tokens for you :) Import the GOFLOW token address to your wallet`
-      );
+      )
     } catch (e: any) {
-      toast.error(e.message);
-      console.log(e);
+      toast.error(e.message)
+      console.log(e)
     }
-  };
+  }
 
   const handleClick = async () => {
     try {
-      await addAnswer.mutateAsync({ questionId, message });
-      setMessage("");
+      await addAnswer.mutateAsync({ questionId, message })
+      setMessage("")
     } catch (e: any) {
-      console.log(e);
-      toast.error(e.message);
+      console.log(e)
+      toast.error(e.message)
     }
-  };
+  }
 
   return (
     <Stack spacing={3}>
@@ -128,7 +126,7 @@ const AnswerEditor: React.FunctionComponent<AnswerEditorProps> = ({
         </Flex>
       )}
     </Stack>
-  );
-};
+  )
+}
 
-export default AnswerEditor;
+export default AnswerEditor

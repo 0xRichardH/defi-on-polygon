@@ -1,23 +1,23 @@
-import { Box, Center, Spinner, Stack, Icon } from "@chakra-ui/react";
-import { BigNumber } from "ethers";
-import { NextPage } from "next";
-import { useRouter } from "next/router";
-import * as React from "react";
-import Question from "../../components/Question";
-import Answers from "../../components/Answers";
-import useQuestions from "../../hooks/useQuestions";
-import { FaCommentDollar } from "react-icons/fa";
+import { Box, Center, Spinner, Stack, Icon } from "@chakra-ui/react"
+import { BigNumber } from "ethers"
+import { NextPage } from "next"
+import { useRouter } from "next/router"
+import * as React from "react"
+import Question from "../../components/Question"
+import Answers from "../../components/Answers"
+import useQuestions from "../../hooks/useQuestions"
+import { FaCommentDollar } from "react-icons/fa"
 
 const QuestionPage: NextPage = () => {
-  const [questionId, setQuestionId] = React.useState<BigNumber | undefined>();
-  const { questionQuery } = useQuestions({ questionId });
-  const router = useRouter();
+  const [questionId, setQuestionId] = React.useState<BigNumber | undefined>()
+  const { questionQuery } = useQuestions({ questionId })
+  const router = useRouter()
 
   React.useEffect(() => {
     if (router.isReady) {
-      setQuestionId(BigNumber.from(router.query.id));
+      setQuestionId(BigNumber.from(router.query.id))
     }
-  }, [router.isReady, router.query.id]);
+  }, [router.isReady, router.query.id])
 
   return (
     <Box p={3} pt={8} maxW="600px" minW="320px" m="0 auto">
@@ -40,7 +40,7 @@ const QuestionPage: NextPage = () => {
         </Stack>
       )}
     </Box>
-  );
-};
+  )
+}
 
-export default QuestionPage;
+export default QuestionPage

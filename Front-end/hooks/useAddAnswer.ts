@@ -1,17 +1,17 @@
-import { BigNumber } from "ethers";
-import { useMutation } from "react-query";
-import useForumContract from "./contracts/useForumContract";
+import { BigNumber } from "ethers"
+import { useMutation } from "react-query"
+import useForumContract from "./contracts/useForumContract"
 
 interface UseAddAnswerPayload {
-  questionId: BigNumber;
-  message: string;
+  questionId: BigNumber
+  message: string
 }
 
 const useAddAnswer = () => {
-  const contract = useForumContract();
+  const contract = useForumContract()
   return useMutation(async ({ questionId, message }: UseAddAnswerPayload) => {
-    return await contract.postAnswer(questionId, message);
-  });
-};
+    return await contract.postAnswer(questionId, message)
+  })
+}
 
-export default useAddAnswer;
+export default useAddAnswer

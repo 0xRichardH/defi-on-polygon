@@ -1,15 +1,15 @@
-import { useMutation } from "react-query";
-import useForumContract from "./contracts/useForumContract";
+import { useMutation } from "react-query"
+import useForumContract from "./contracts/useForumContract"
 
 interface UseAddQuestionPayload {
-  message: string;
+  message: string
 }
 
 const useAddQuestion = () => {
-  const contract = useForumContract();
+  const contract = useForumContract()
   return useMutation(async ({ message }: UseAddQuestionPayload) => {
-    await contract.postQuestion(message);
-  });
-};
+    await contract.postQuestion(message)
+  })
+}
 
-export default useAddQuestion;
+export default useAddQuestion

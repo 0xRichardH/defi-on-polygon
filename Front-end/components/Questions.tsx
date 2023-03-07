@@ -1,14 +1,14 @@
-import * as React from "react";
-import { Box, Center, Spinner, Stack } from "@chakra-ui/react";
-import useQuestions from "../hooks/useQuestions";
-import Question from "./Question";
-import QuestionEditor from "./QuestionEditor";
-import useEvents from "../hooks/useEvents";
+import * as React from "react"
+import { Box, Center, Spinner, Stack } from "@chakra-ui/react"
+import useQuestions from "../hooks/useQuestions"
+import Question from "./Question"
+import QuestionEditor from "./QuestionEditor"
+import useEvents from "../hooks/useEvents"
 
 const Questions: React.FunctionComponent = () => {
-  const { allQuestionsQuery } = useQuestions({});
+  const { allQuestionsQuery } = useQuestions({})
 
-  useEvents({});
+  useEvents({})
 
   return (
     <Box>
@@ -24,7 +24,7 @@ const Questions: React.FunctionComponent = () => {
         {allQuestionsQuery.isFetched && <QuestionEditor />}
       </Stack>
     </Box>
-  );
-};
+  )
+}
 
-export default Questions;
+export default Questions

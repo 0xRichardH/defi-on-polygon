@@ -8,18 +8,18 @@ import {
   LinkOverlay,
   Spacer,
   Text,
-} from "@chakra-ui/react";
-import Avatar from "@davatar/react/dist/Image";
-import NextLink from "next/link";
-import * as React from "react";
-import TimeAgo from "react-timeago";
-import { useProvider } from "wagmi";
-import { Question as QuestionStruct } from "../hooks/contracts/useForumContract";
-import useAnswers from "../hooks/useAnswers";
-import Username from "./Username";
+} from "@chakra-ui/react"
+import Avatar from "@davatar/react/dist/Image"
+import NextLink from "next/link"
+import * as React from "react"
+import TimeAgo from "react-timeago"
+import { useProvider } from "wagmi"
+import { Question as QuestionStruct } from "../hooks/contracts/useForumContract"
+import useAnswers from "../hooks/useAnswers"
+import Username from "./Username"
 
 interface QuestionProps extends QuestionStruct {
-  answerPage?: boolean;
+  answerPage?: boolean
 }
 
 const Question: React.FunctionComponent<QuestionProps> = ({
@@ -29,8 +29,8 @@ const Question: React.FunctionComponent<QuestionProps> = ({
   timestamp,
   answerPage,
 }: QuestionProps) => {
-  const provider = useProvider();
-  const answersQuery = useAnswers({ questionId });
+  const provider = useProvider()
+  const answersQuery = useAnswers({ questionId })
 
   return (
     <>
@@ -99,7 +99,7 @@ const Question: React.FunctionComponent<QuestionProps> = ({
         </HStack>
       )}
     </>
-  );
-};
+  )
+}
 
-export default Question;
+export default Question
