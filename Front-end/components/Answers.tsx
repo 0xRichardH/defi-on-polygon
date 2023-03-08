@@ -5,6 +5,7 @@ import useAnswers from "../hooks/useAnswers"
 import { Box, Center, Spinner, Stack } from "@chakra-ui/react"
 import Answer from "./Answer"
 import AnswerEditor from "./AnswerEditor"
+import useEvents from "../hooks/useEvents"
 
 interface AnswersProps {
   questionId: BigNumber
@@ -15,6 +16,8 @@ const Answers: React.FunctionComponent<AnswersProps> = ({
 }: AnswersProps) => {
   const [sortedAnswers, setSortedAnswers] = React.useState<AnswerStruct[]>([])
   const answersQuery = useAnswers({ questionId })
+
+  useEvents({ questionId })
 
   React.useEffect(() => {
     if (answersQuery.data) {

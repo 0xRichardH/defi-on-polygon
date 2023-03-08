@@ -43,7 +43,6 @@ const Upvote: React.FunctionComponent<UpvoteButtonProps> = ({
   }, [answerId, upvotesQuery.data, upvotesQuery.isFetched])
 
   const handleClick = async () => {
-    console.log(account, creatorAddress)
     if (account === creatorAddress) {
       toast.error("You cannot upvote your own answer!")
       return
