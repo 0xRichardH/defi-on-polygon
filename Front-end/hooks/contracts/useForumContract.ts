@@ -2,6 +2,7 @@ import type { BigNumber } from "ethers"
 import * as wagmi from "wagmi"
 import { useProvider, useSigner } from "wagmi"
 import ForumContract from "../../../Hardhat/artifacts/contracts/Forum.sol/Forum.json"
+import { useEnv } from "../../lib/env-utils"
 
 export enum ForumEvent {
   QuestionAdded = "QuestionAdded",
@@ -26,10 +27,11 @@ export interface Answer {
 }
 
 const useForumContract = () => {
+  const env = useEnv()
   const provider = useProvider()
   const { data: singer } = useSigner()
   const contract = wagmi.useContract({
-    addressOrName: "0xe7f1725E7734CE288F8367e1Bb143E90bb3F0512",
+    addressOrName: env.FORUM_CONTRACT_ADDRESS,
     contractInterface: ForumContract.abi,
     signerOrProvider: singer || provider,
   })
