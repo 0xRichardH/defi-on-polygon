@@ -1,6 +1,6 @@
 import * as React from "react"
 import { Button, ButtonProps } from "@chakra-ui/react"
-import { useAccount, useConnect, useNetwork } from "wagmi"
+import { useAccount, useConnect, useNetwork, chain as chains } from "wagmi"
 import toast from "react-hot-toast"
 import { InjectedConnector } from "wagmi/connectors/injected"
 
@@ -22,6 +22,10 @@ const AuthButton: React.FunctionComponent<AuthButtonProps> = ({
   React.useEffect(() => {
     if (error?.name === "ConnectorNotFoundError") {
       toast.error("Please install Metamask")
+    }
+
+    if (isConnected && chain?.id !== chains.polygonMumbai.id) {
+      toast.error("Please switch to Polygon Mumbai Testnet")
     }
   }, [error, chain, isConnected])
 
