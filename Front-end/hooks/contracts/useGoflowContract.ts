@@ -2,7 +2,7 @@ import { useContract, useProvider, useSigner } from "wagmi"
 import { BigNumber } from "ethers"
 import GoflowContract from "../../../Hardhat/artifacts/contracts/OurToken.sol/Goflow.json"
 import { makeNum } from "../../lib/number-utils"
-import { useEnv } from "../../lib/env-utils"
+import { loadEnv } from "../../lib/env-utils"
 
 export enum TokenEvent {
   Transfer = "Transfer",
@@ -17,7 +17,7 @@ export interface Transfer {
 }
 
 const useGoflowContract = () => {
-  const env = useEnv()
+  const env = loadEnv()
   const { data: signer } = useSigner()
   const provider = useProvider()
   const contract = useContract({

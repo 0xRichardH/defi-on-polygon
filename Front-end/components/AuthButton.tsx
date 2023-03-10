@@ -23,10 +23,6 @@ const AuthButton: React.FunctionComponent<AuthButtonProps> = ({
     if (error?.name === "ConnectorNotFoundError") {
       toast.error("Please install Metamask")
     }
-
-    if (isConnected && chain?.id !== 1337) {
-      toast.error("Please connect to the local network")
-    }
   }, [error, chain, isConnected])
 
   React.useEffect(() => {
@@ -35,7 +31,7 @@ const AuthButton: React.FunctionComponent<AuthButtonProps> = ({
     } else {
       setBtnText("Sign In")
     }
-  }, [isConnected])
+  }, [isConnected, text])
 
   if (isConnected) {
     return <Button {...props}>{btnText}</Button>
