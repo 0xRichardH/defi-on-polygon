@@ -16,7 +16,7 @@ const App: NextPage = () => {
       )
     }
     fetchQuestion()
-  }, [contract])
+  }, [])
 
   return (
     <Box p={8} maxW="600px" minW="320px" m="0 auto">

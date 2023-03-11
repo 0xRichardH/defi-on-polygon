@@ -35,7 +35,7 @@ const AuthButton: React.FunctionComponent<AuthButtonProps> = ({
     } else {
       setBtnText("Sign In")
     }
-  }, [isConnected, text])
+  }, [isConnected])
 
   if (isConnected) {
     return <Button {...props}>{btnText}</Button>
